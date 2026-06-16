@@ -1,10 +1,11 @@
+import artisanImage from "../assets/artisans.jpg";
+
 function Hero() {
   return (
     <section
       className="relative h-[80vh] bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('https://3.imimg.com/data3/JP/LW/MY-12651635/wp-content-uploads-2013-11-handloomhandicraft--500x500.jpg')",
+        backgroundImage: `url(${artisanImage})`,
       }}
     >
       <div className="absolute inset-0 bg-black/50"></div>
