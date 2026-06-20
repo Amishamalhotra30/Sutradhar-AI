@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import ComponentsDemo from "./pages/ComponentsDemo";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
 
+        <Route path="/components" element={<ComponentsDemo />} />
       </Routes>
     </BrowserRouter>
   );

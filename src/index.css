@@ -5,3 +5,21 @@ body{
   background:#f8fafc;
   font-family: Inter, sans-serif;
 }
+.dark-theme {
+  background-color: #111827;
+  color: white;
+}
+
+.dark-theme nav {
+  background-color: #0f172a !important;
+}
+
+.dark-theme footer {
+  background-color: #0f172a !important;
+  color: white;
+}
+
+.dark-theme .card-dark {
+  background-color: #1e293b !important;
+  color: white;
+}

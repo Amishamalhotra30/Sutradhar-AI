@@ -182,3 +182,11 @@
     border-right-color: var(--border);
   }
 }
+html.dark {
+  background-color: #111827;
+}
+
+html.dark body {
+  background-color: #111827;
+  color: white;
+}
