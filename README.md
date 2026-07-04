@@ -67,3 +67,43 @@ Swagger API Documentation:
 ```
 http://127.0.0.1:8000/docs
 ```
+## Database
+
+### Database Choice
+
+This project uses **MongoDB Atlas** as the cloud-hosted NoSQL database. MongoDB was chosen because it provides a flexible document-based data model that suits the artisan product information used in Sutradhar AI.
+
+### Database Schema
+
+The project contains the following collections:
+
+- User
+- Artisan
+- Product
+
+(A schema diagram is included below.)
+
+### Database Setup
+
+1. Create a MongoDB Atlas cluster.
+2. Create a database user.
+3. Whitelist your IP address.
+4. Create a `.env` file inside the backend folder.
+5. Add:
+
+```env
+MONGO_URI=your_connection_string
+DATABASE_NAME=sutradhar_ai
+```
+
+6. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+7. Run the backend:
+
+```bash
+uvicorn app.main:app --reload
+```
