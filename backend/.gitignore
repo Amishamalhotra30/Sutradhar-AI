@@ -8,5 +8,11 @@ venv/
 __pycache__/
 *.pyc
 
+# Node Modules
+node_modules/
+
+# Build Files
+dist/
+
 # VS Code
 .vscode/

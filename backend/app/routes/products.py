@@ -1,64 +1,119 @@
 from fastapi import APIRouter, HTTPException, Query
-from app.data.products import products
+from app.database import db
 
-router = APIRouter(prefix="/api/products", tags=["Products"])
+router = APIRouter(
+    prefix="/api/products",
+    tags=["Products"]
+)
+
+collection = db["products"]
 
 
 # GET - List all products
 @router.get("/")
 def get_products():
+    products = list(collection.find({}, {"_id": 0}))
     return products
 
 
 # GET - Single product
 @router.get("/{product_id}")
 def get_product(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            return product
-    raise HTTPException(status_code=404, detail="Product not found")
+    product = collection.find_one(
+        {"id": product_id},
+        {"_id": 0}
+    )
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return product
 
 
 # POST - Create product
 @router.post("/", status_code=201)
 def create_product(product: dict):
-    new_id = max([p["id"] for p in products], default=0) + 1
+
+    last_product = collection.find_one(
+        sort=[("id", -1)]
+    )
+
+    new_id = 1 if last_product is None else last_product["id"] + 1
+
     product["id"] = new_id
-    products.append(product)
-    return product
+
+    result = collection.insert_one(product)
+
+    # Fetch the inserted document without _id
+    created_product = collection.find_one(
+        {"_id": result.inserted_id},
+        {"_id": 0}
+    )
+
+    return created_product
 
 
 # PUT - Update product
 @router.put("/{product_id}")
 def update_product(product_id: int, updated_product: dict):
-    for index, product in enumerate(products):
-        if product["id"] == product_id:
-            updated_product["id"] = product_id
-            products[index] = updated_product
-            return updated_product
 
-    raise HTTPException(status_code=404, detail="Product not found")
+    updated_product["id"] = product_id
+
+    result = collection.update_one(
+        {"id": product_id},
+        {"$set": updated_product}
+    )
+
+    if result.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return collection.find_one(
+        {"id": product_id},
+        {"_id": 0}
+    )
 
 
 # DELETE - Delete product
 @router.delete("/{product_id}", status_code=204)
 def delete_product(product_id: int):
-    for index, product in enumerate(products):
-        if product["id"] == product_id:
-            products.pop(index)
-            return
 
-    raise HTTPException(status_code=404, detail="Product not found")
+    result = collection.delete_one(
+        {"id": product_id}
+    )
+
+    if result.deleted_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return
 
 
 # SEARCH - Search products
 @router.get("/search/")
 def search_products(q: str = Query(...)):
-    results = [
-        product for product in products
-        if q.lower() in product["name"].lower()
-        or q.lower() in product["artisan"].lower()
-        or q.lower() in product["region"].lower()
-        or q.lower() in product["category"].lower()
-    ]
+
+    query = {
+        "$or": [
+            {"name": {"$regex": q, "$options": "i"}},
+            {"artisan": {"$regex": q, "$options": "i"}},
+            {"region": {"$regex": q, "$options": "i"}},
+            {"category": {"$regex": q, "$options": "i"}}
+        ]
+    }
+
+    results = list(
+        collection.find(
+            query,
+            {"_id": 0}
+        )
+    )
+
     return results
