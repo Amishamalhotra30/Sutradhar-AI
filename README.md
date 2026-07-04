@@ -107,3 +107,9 @@ pip install -r requirements.txt
 ```bash
 uvicorn app.main:app --reload
 ```
+
+## Database Schema
+
+The application uses MongoDB Atlas for persistent storage. The logical database design consists of three entities: Products, Artisans, and Categories. Each product is associated with one artisan and one category.
+
+![Database Schema](W5_SchemaDiagram_TBI-26100379.png)
