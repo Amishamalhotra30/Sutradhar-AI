@@ -1,5 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
 from app.database import db
+from app.auth.dependencies import verify_token
 
 router = APIRouter(
     prefix="/api",
@@ -10,9 +12,14 @@ collection = db["products"]
 
 
 @router.get("/stats")
-def get_stats():
+def get_stats(payload=Depends(verify_token)):
 
-    products = list(collection.find({}, {"_id": 0}))
+    products = list(
+        collection.find(
+            {},
+            {"_id": 0}
+        )
+    )
 
     return {
         "total_products": len(products),

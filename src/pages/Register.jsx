@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import { registerUser } from "../services/authService";
 
-import {
-  loginUser,
-  googleLogin,
-} from "../services/authService";
-
-function Login() {
+function Register() {
 
   const navigate = useNavigate();
 
@@ -33,47 +28,17 @@ function Login() {
 
     try {
 
-      await loginUser(formData);
+      const response = await registerUser(formData);
 
-      setMessage("Login Successful!");
+      setMessage(response.message);
 
       setTimeout(() => {
-        navigate("/dashboard", {
-          replace: true
-        });
+        navigate("/login", { replace: true });
       }, 1000);
 
     } catch (error) {
-
       setMessage(error.message);
-
     }
-
-  };
-
-  const handleGoogleSuccess = async (credentialResponse) => {
-
-    try {
-
-      await googleLogin(
-        credentialResponse.credential
-      );
-
-      navigate("/dashboard", {
-        replace: true
-      });
-
-    } catch (error) {
-
-      setMessage(error.message);
-
-    }
-
-  };
-
-  const handleGoogleError = () => {
-
-    setMessage("Google Login Failed.");
 
   };
 
@@ -84,13 +49,10 @@ function Login() {
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
 
         <h1 className="text-3xl font-bold text-center text-green-700 mb-8">
-          Login
+          Create Account
         </h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="space-y-5">
 
           <input
             type="email"
@@ -113,43 +75,22 @@ function Login() {
           <button
             className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800"
           >
-            Login
+            Register
           </button>
 
         </form>
-
-        <div className="my-6 flex items-center">
-
-          <hr className="flex-grow" />
-
-          <span className="mx-3 text-gray-500">
-            OR
-          </span>
-
-          <hr className="flex-grow" />
-
-        </div>
-
-        <div className="flex justify-center">
-
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-          />
-
-        </div>
 
         <p className="text-center mt-5 text-red-600">
           {message}
         </p>
 
         <p className="text-center mt-6">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-green-700 font-semibold"
           >
-            Register
+            Login
           </Link>
         </p>
 
@@ -161,4 +102,4 @@ function Login() {
 
 }
 
-export default Login;
+export default Register;
