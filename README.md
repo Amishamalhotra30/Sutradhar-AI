@@ -108,6 +108,77 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+# Authentication & Security
+
+The application now includes a complete authentication and authorization system to ensure secure access to protected resources.
+
+## Authentication Features
+
+- User Registration with secure password hashing using **bcrypt**
+- User Login with **JWT Authentication**
+- Google OAuth Login integration
+- JWT-based Protected API Routes
+- Protected Frontend Routes using React Router
+- Secure Logout functionality
+
+## Security Features
+
+- Password hashing using bcrypt
+- JWT token generation and validation
+- Input validation for authentication endpoints
+- Rate limiting for login and registration APIs
+- CORS configuration for secure frontend-backend communication
+- Environment variable configuration for sensitive credentials
+
+# Authentication API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Authenticate user and generate JWT |
+| POST | `/api/auth/google` | Login using Google OAuth |
+| GET | `/api/auth/me` | Retrieve authenticated user information |
+
+# Frontend Authentication
+
+The React frontend implements secure authentication using:
+
+- JWT storage in Local Storage
+- ProtectedRoute component for authenticated pages
+- Automatic redirection of unauthenticated users to the Login page
+- Google Sign-In integration using Google OAuth
+
+# Environment Variables
+
+### Backend (.env)
+
+```env
+MONGO_URI=your_mongodb_connection_string
+DATABASE_NAME=sutradhar_ai
+
+JWT_SECRET=your_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=10080
+
+GOOGLE_CLIENT_ID=your_google_client_id
+```
+
+### Frontend (.env)
+
+```env
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+```
+
+# API Documentation
+
+Swagger UI is available at:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+The authentication endpoints can be tested directly through Swagger UI or Postman using JWT Bearer Tokens.
+
 ## Database Schema
 
 The application uses MongoDB Atlas for persistent storage. The logical database design consists of three entities: Products, Artisans, and Categories. Each product is associated with one artisan and one category.
