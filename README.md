@@ -108,6 +108,12 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+## Database Schema
+
+The application uses MongoDB Atlas for persistent storage. The logical database design consists of three entities: Products, Artisans, and Categories. Each product is associated with one artisan and one category.
+
+![Database Schema](W5_SchemaDiagram_TBI-26100379.png)
+
 # Authentication & Security
 
 The application now includes a complete authentication and authorization system to ensure secure access to protected resources.
@@ -178,9 +184,3 @@ http://127.0.0.1:8000/docs
 ```
 
 The authentication endpoints can be tested directly through Swagger UI or Postman using JWT Bearer Tokens.
-
-## Database Schema
-
-The application uses MongoDB Atlas for persistent storage. The logical database design consists of three entities: Products, Artisans, and Categories. Each product is associated with one artisan and one category.
-
-![Database Schema](W5_SchemaDiagram_TBI-26100379.png)
