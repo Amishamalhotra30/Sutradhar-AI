@@ -184,3 +184,77 @@ http://127.0.0.1:8000/docs
 ```
 
 The authentication endpoints can be tested directly through Swagger UI or Postman using JWT Bearer Tokens.
+
+# AI Heritage Story Generator
+
+The AI Heritage Story Generator enables artisans and users to generate culturally rich heritage stories for traditional handicrafts using Google's Gemini AI model. The generated stories highlight the historical significance, craftsmanship, and cultural value of Indian handicrafts based on user-provided inputs.
+
+## Features
+
+- AI-powered heritage story generation using Google Gemini
+- Generates stories based on:
+  - Craft Name
+  - State
+  - Artisan Name
+  - Speciality
+- Automatically stores generated stories in MongoDB Atlas
+- View previously generated stories
+- Copy generated stories to clipboard
+- Download generated stories as PDF
+
+## AI Workflow
+
+```
+User Input
+     │
+     ▼
+React Frontend
+     │
+     ▼
+FastAPI Backend
+     │
+     ▼
+Google Gemini API
+     │
+     ▼
+Generated Heritage Story
+     │
+     ├────────► Display in React
+     │
+     └────────► Save to MongoDB Atlas
+```
+
+## AI API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/ai/story` | Generate a heritage story using Google Gemini |
+| GET | `/api/ai/stories` | Retrieve all previously generated stories |
+
+## AI Technologies Used
+
+- Google Gemini API
+- google-genai SDK
+- FastAPI
+- React.js
+- MongoDB Atlas
+- jsPDF
+
+## Generated Story Features
+
+Each generated story can be:
+
+- Viewed instantly after generation
+- Saved automatically in MongoDB Atlas
+- Retrieved later through the Story History section
+- Copied to the clipboard
+- Downloaded as a PDF document
+
+## AI Story Generation Process
+
+1. User enters the craft details.
+2. The frontend sends the request to the FastAPI backend.
+3. FastAPI forwards the prompt to the Google Gemini API.
+4. Gemini generates a heritage story.
+5. The generated story is displayed in the application.
+6. The story is stored in the MongoDB `Stories` collection for future reference.
