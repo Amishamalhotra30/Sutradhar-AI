@@ -48,6 +48,12 @@ function Navbar() {
           </Link>
 
           <Link
+          className="hover:text-green-700"
+          to="/ai-story"
+          >
+          AI Story
+          </Link>
+          <Link
             className="hover:text-green-700"
             to="/login"
           >

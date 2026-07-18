@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ComponentsDemo from "./pages/ComponentsDemo";
+import AIStory from "./pages/AIStory";
 
 import ProtectRoute from "./components/ProtectRoute";
 
@@ -32,6 +33,8 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/components" element={<ComponentsDemo />} />
+
+        <Route path="/ai-story" element={<AIStory />} />
 
       </Routes>
     </BrowserRouter>
