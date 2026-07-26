@@ -259,11 +259,11 @@ Each generated story can be:
 5. The generated story is displayed in the application.
 6. The story is stored in the MongoDB `Stories` collection for future reference.
 
-Dashboard
+### Dashboard
 
 The application includes a secure dashboard that provides users with a centralized view of platform activity after successful authentication.
 
-Features
+### Features
 JWT-protected dashboard access
 Live dashboard statistics
 Recently added products
@@ -275,7 +275,7 @@ Product Management
 
 The Product Management module provides complete CRUD functionality integrated with MongoDB Atlas.
 
-Features
+### Features
 View all products
 Add new products
 Update existing products
@@ -295,7 +295,7 @@ Craft DNA
 
 The Craft DNA module provides detailed information about artisan products by combining product details with AI-generated cultural insights.
 
-Features
+### Features
 Dynamic product selection
 Product information display
 Heritage story integration
@@ -305,7 +305,7 @@ User Experience
 
 Several enhancements have been implemented to improve usability and provide a smoother user experience.
 
-Features
+### Features
 Reusable Loader component
 Toast notifications for user feedback
 Empty-state components
@@ -318,7 +318,7 @@ Error Handling
 
 The application includes robust error handling to improve stability and user experience.
 
-Features
+### Features
 React Error Boundary
 Custom 404 Not Found page
 Graceful fallback UI for rendering errors
@@ -330,7 +330,7 @@ The frontend uses JWT-based authentication to restrict access to authorized user
 
 The following pages are protected:
 
-Dashboard
+### Dashboard
 Products
 AI Heritage Story Generator
 Craft DNA
@@ -341,7 +341,7 @@ Responsive Design
 
 The user interface has been optimized to provide a consistent experience across multiple screen sizes.
 
-Supported layouts include:
+### Supported layouts include:
 
 Mobile devices
 Tablets
@@ -349,7 +349,7 @@ Desktop screens
 
 All pages, forms, navigation components, and cards automatically adapt to different screen resolutions.
 
-Additional Technologies Used
+### Additional Technologies Used
 React Hot Toast
 React Router
 Tailwind CSS
