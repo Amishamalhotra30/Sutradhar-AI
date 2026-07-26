@@ -258,3 +258,126 @@ Each generated story can be:
 4. Gemini generates a heritage story.
 5. The generated story is displayed in the application.
 6. The story is stored in the MongoDB `Stories` collection for future reference.
+
+Dashboard
+
+The application includes a secure dashboard that provides users with a centralized view of platform activity after successful authentication.
+
+Features
+JWT-protected dashboard access
+Live dashboard statistics
+Recently added products
+Recently generated AI heritage stories
+Quick navigation shortcuts
+Secure logout functionality
+Responsive dashboard layout
+Product Management
+
+The Product Management module provides complete CRUD functionality integrated with MongoDB Atlas.
+
+Features
+View all products
+Add new products
+Update existing products
+Delete products
+Search products by name
+Form validation
+Loading indicators
+Success and error notifications
+Delete confirmation dialog
+Product API Endpoints
+Method	Endpoint	Description
+GET	/api/products	Retrieve all products
+POST	/api/products	Create a new product
+PUT	/api/products/{id}	Update an existing product
+DELETE	/api/products/{id}	Delete a product
+Craft DNA
+
+The Craft DNA module provides detailed information about artisan products by combining product details with AI-generated cultural insights.
+
+Features
+Dynamic product selection
+Product information display
+Heritage story integration
+AI-generated market insights
+Responsive card-based layout
+User Experience
+
+Several enhancements have been implemented to improve usability and provide a smoother user experience.
+
+Features
+Reusable Loader component
+Toast notifications for user feedback
+Empty-state components
+Improved form validation
+Responsive layouts using Tailwind CSS
+Better spacing and component organization
+Product count indicators
+Consistent loading animations
+Error Handling
+
+The application includes robust error handling to improve stability and user experience.
+
+Features
+React Error Boundary
+Custom 404 Not Found page
+Graceful fallback UI for rendering errors
+Improved API error handling
+Better frontend exception management
+Protected Routes
+
+The frontend uses JWT-based authentication to restrict access to authorized users.
+
+The following pages are protected:
+
+Dashboard
+Products
+AI Heritage Story Generator
+Craft DNA
+
+Users attempting to access protected routes without authentication are automatically redirected to the Login page.
+
+Responsive Design
+
+The user interface has been optimized to provide a consistent experience across multiple screen sizes.
+
+Supported layouts include:
+
+Mobile devices
+Tablets
+Desktop screens
+
+All pages, forms, navigation components, and cards automatically adapt to different screen resolutions.
+
+Additional Technologies Used
+React Hot Toast
+React Router
+Tailwind CSS
+FastAPI REST APIs
+MongoDB Atlas
+JWT Authentication
+React Error Boundary
+jsPDF
+Google Gemini API
+Current Application Features
+
+The Sutradhar AI platform currently includes:
+
+User Registration and Login
+Google OAuth Authentication
+JWT-Based Authorization
+MongoDB Atlas Integration
+Dashboard with Live Statistics
+Complete Product Management (CRUD)
+AI Heritage Story Generator
+Story History Management
+PDF Export of Generated Stories
+Copy to Clipboard Functionality
+Craft DNA Module
+Responsive User Interface
+Protected Routes
+Error Boundary
+Custom 404 Not Found Page
+Swagger API Documentation
+
+The application provides a complete AI-assisted platform for artisans and MSMEs, combining product management, AI-powered storytelling, cultural insights, and business intelligence within a secure full-stack architecture.
