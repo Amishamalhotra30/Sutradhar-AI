@@ -7,6 +7,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ComponentsDemo from "./pages/ComponentsDemo";
 import AIStory from "./pages/AIStory";
+import Products from "./pages/Products";
+import CraftDNA from "./pages/CraftDNA";
+import NotFound from "./pages/NotFound";
 
 import ProtectRoute from "./components/ProtectRoute";
 
@@ -15,9 +18,19 @@ function App() {
     <BrowserRouter>
       <Routes>
 
+        {/* ---------- Public Routes ---------- */}
+
         <Route path="/" element={<Home />} />
 
         <Route path="/about" element={<About />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/components" element={<ComponentsDemo />} />
+
+        {/* ---------- Protected Routes ---------- */}
 
         <Route
           path="/dashboard"
@@ -28,13 +41,36 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/ai-story"
+          element={
+            <ProtectRoute>
+              <AIStory />
+            </ProtectRoute>
+          }
+        />
 
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/products"
+          element={
+            <ProtectRoute>
+              <Products />
+            </ProtectRoute>
+          }
+        />
 
-        <Route path="/components" element={<ComponentsDemo />} />
+        <Route
+          path="/craft-dna"
+          element={
+            <ProtectRoute>
+              <CraftDNA />
+            </ProtectRoute>
+          }
+        />
 
-        <Route path="/ai-story" element={<AIStory />} />
+        {/* ---------- 404 Page ---------- */}
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>
