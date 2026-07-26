@@ -1,4 +1,4 @@
-Sutradhar AI
+##Sutradhar AI
 
 Sutradhar AI is an AI-powered storytelling and business intelligence platform designed for handicraft artisans and MSMEs.
 
