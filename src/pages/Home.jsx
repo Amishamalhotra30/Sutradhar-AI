@@ -11,6 +11,12 @@ import { Loader } from "../components/ui";
 
 import { FaFeatherAlt, FaIdCard, FaChartLine } from "react-icons/fa";
 
+// API base URL
+// Local development -> value from local .env
+// Production -> value configured in Vercel
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,12 +27,11 @@ function Home() {
 
   async function fetchProducts() {
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/api/products/"
-      );
+      const response = await axios.get(`${API_URL}/api/products/`);
 
       setProducts(response.data);
     } catch (error) {
+      console.error("Failed to load products:", error);
       toast.error("Unable to load products from backend.");
     } finally {
       setLoading(false);
@@ -39,7 +44,7 @@ function Home() {
 
       <Hero />
 
-      {/* Existing Core Features */}
+      {/* Core Features */}
 
       <section className="max-w-6xl mx-auto py-20 px-6">
         <h2 className="text-4xl font-bold text-center mb-12">
@@ -47,7 +52,6 @@ function Home() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
           <Card
             icon={<FaFeatherAlt size={35} />}
             title="AI Heritage Story Generator"
@@ -65,14 +69,12 @@ function Home() {
             title="Smart Pricing Assistant"
             desc="Receive AI-assisted recommendations to support fair and transparent pricing."
           />
-
         </div>
       </section>
 
-      {/* NEW Backend Connected Section */}
+      {/* Backend Connected Products Section */}
 
       <section className="max-w-6xl mx-auto py-20 px-6">
-
         <h2 className="text-4xl font-bold text-center mb-12">
           Featured Artisan Products
         </h2>
@@ -83,9 +85,7 @@ function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
             {products.map((product) => (
-
               <Card
                 key={product.id}
                 title={product.name}
@@ -94,20 +94,15 @@ Region: ${product.region}
 Category: ${product.category}
 Price: ₹${product.price}`}
               />
-
             ))}
-
           </div>
         )}
-
       </section>
 
-      {/* Existing Statistics */}
+      {/* Statistics */}
 
       <section className="bg-green-700 text-white py-16">
-
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-
           <div>
             <h2 className="text-4xl font-bold">AI</h2>
             <p className="mt-2">Story Generation</p>
@@ -122,9 +117,7 @@ Price: ₹${product.price}`}
             <h2 className="text-4xl font-bold">Smart</h2>
             <p className="mt-2">Business Insights</p>
           </div>
-
         </div>
-
       </section>
 
       <Footer />
