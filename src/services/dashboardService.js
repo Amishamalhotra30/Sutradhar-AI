@@ -1,26 +1,35 @@
-import { getToken } from "./authService";
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
 
-const authHeaders = () => ({
-  Authorization: `Bearer ${getToken()}`,
-  "Content-Type": "application/json",
-});
+  return {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+};
 
+// ================================
+// Dashboard Statistics
+// ================================
 export const getDashboardStats = async () => {
-  const response = await fetch(`${API_URL}/stats`, {
-    headers: authHeaders(),
+  const response = await fetch(`${BASE_URL}/api/stats`, {
+    headers: getAuthHeaders(),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch statistics");
+    throw new Error("Failed to fetch dashboard statistics");
   }
 
   return response.json();
 };
 
+// ================================
+// Products
+// ================================
 export const getProducts = async () => {
-  const response = await fetch(`${API_URL}/products`);
+  const response = await fetch(`${BASE_URL}/api/products/`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch products");
@@ -29,15 +38,11 @@ export const getProducts = async () => {
   return response.json();
 };
 
+// ================================
+// AI Stories
+// ================================
 export const getStories = async () => {
-  const response = await fetch(
-    "http://127.0.0.1:8000/api/ai/stories",
-    {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    }
-  );
+  const response = await fetch(`${BASE_URL}/api/ai/stories`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch stories");
