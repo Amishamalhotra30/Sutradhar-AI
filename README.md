@@ -381,3 +381,89 @@ Custom 404 Not Found Page
 Swagger API Documentation
 
 The application provides a complete AI-assisted platform for artisans and MSMEs, combining product management, AI-powered storytelling, cultural insights, and business intelligence within a secure full-stack architecture.
+
+## Deployment
+
+Sutradhar AI is deployed as a full-stack web application using Vercel for the React frontend, Render for the FastAPI backend, and MongoDB Atlas for cloud database storage.
+
+### Live Application
+
+**Frontend:**  
+https://sutradhar-ai-ten.vercel.app
+
+**Backend API:**  
+https://sutradhar-ai-ra9o.onrender.com
+
+**FastAPI Swagger Documentation:**  
+https://sutradhar-ai-ra9o.onrender.com/docs
+
+**Backend Health Check:**  
+https://sutradhar-ai-ra9o.onrender.com/health
+
+### Deployment Architecture
+
+Sutradhar AI uses the following production architecture:
+
+React + Vite Frontend  
+↓  
+Vercel  
+↓  
+FastAPI REST API  
+↓  
+Render  
+↓  
+MongoDB Atlas
+
+The AI Heritage Story Generator communicates with the Google Gemini API through the FastAPI backend.
+
+### Production Tech Stack
+
+**Frontend**
+- React.js
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- React Hot Toast
+- jsPDF
+
+**Backend**
+- FastAPI
+- Python
+- Uvicorn
+- JWT Authentication
+- Google OAuth
+- SlowAPI
+
+**Database**
+- MongoDB Atlas
+
+**AI Integration**
+- Google Gemini API
+- Google GenAI SDK
+
+**Deployment**
+- Vercel — Frontend Hosting
+- Render — Backend Hosting
+- MongoDB Atlas — Cloud Database
+- GitHub — Source Code and Deployment Integration
+
+### Production Environment Variables
+
+Sensitive configuration values are managed through environment variables and are not committed to the GitHub repository.
+
+**Vercel Frontend**
+```env
+VITE_API_URL=<render_backend_url>
+VITE_GOOGLE_CLIENT_ID=<google_oauth_client_id>
+```
+
+**Render Backend**
+```env
+MONGO_URI=<mongodb_connection_string>
+DATABASE_NAME=<database_name>
+JWT_SECRET=<jwt_secret>
+GOOGLE_CLIENT_ID=<google_oauth_client_id>
+GEMINI_API_KEY=<gemini_api_key>
+FRONTEND_URL=<vercel_frontend_url>
+```
