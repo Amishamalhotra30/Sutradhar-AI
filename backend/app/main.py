@@ -2,6 +2,7 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from slowapi.middleware import SlowAPIMiddleware
 
 from app.database import db
@@ -15,6 +16,7 @@ from app.rate_limiter import limiter
 # ==========================================
 # FastAPI Application
 # ==========================================
+
 app = FastAPI(
     title="Sutradhar AI Backend",
     description="Backend API for Sutradhar AI",
@@ -25,43 +27,88 @@ app = FastAPI(
 # ==========================================
 # Rate Limiter
 # ==========================================
+
 app.state.limiter = limiter
-app.add_middleware(SlowAPIMiddleware)
+
+app.add_middleware(
+    SlowAPIMiddleware
+)
 
 
 # ==========================================
 # CORS Configuration
 # ==========================================
 
-# Production frontend URL will be supplied
-# through Render environment variables.
-FRONTEND_URL = os.getenv("FRONTEND_URL")
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL"
+)
 
-# Local development URLs
+
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
-# Add production Vercel frontend URL
+
 if FRONTEND_URL:
-    allowed_origins.append(FRONTEND_URL.rstrip("/"))
+
+    allowed_origins.append(
+        FRONTEND_URL.rstrip("/")
+    )
+
 
 app.add_middleware(
     CORSMiddleware,
+
     allow_origins=allowed_origins,
+
     allow_credentials=True,
+
     allow_methods=["*"],
+
     allow_headers=["*"],
+)
+
+
+# ==========================================
+# Upload Directory
+# ==========================================
+
+UPLOAD_DIRECTORY = "uploads"
+
+os.makedirs(
+    UPLOAD_DIRECTORY,
+    exist_ok=True
+)
+
+
+# ==========================================
+# Serve Uploaded Files
+# ==========================================
+
+app.mount(
+    "/uploads",
+    StaticFiles(directory=UPLOAD_DIRECTORY),
+    name="uploads"
 )
 
 
 # ==========================================
 # Routes
 # ==========================================
-app.include_router(products_router)
-app.include_router(stats_router)
-app.include_router(auth_router)
+
+app.include_router(
+    products_router
+)
+
+app.include_router(
+    stats_router
+)
+
+app.include_router(
+    auth_router
+)
+
 app.include_router(
     ai_router,
     prefix="/api/ai",
@@ -72,8 +119,10 @@ app.include_router(
 # ==========================================
 # Home
 # ==========================================
+
 @app.get("/")
 def home():
+
     return {
         "message": "Welcome to the Sutradhar AI Backend!"
     }
@@ -82,9 +131,12 @@ def home():
 # ==========================================
 # Health Check
 # ==========================================
+
 @app.get("/health")
 def health_check():
+
     try:
+
         db.command("ping")
 
         return {
@@ -92,6 +144,7 @@ def health_check():
         }
 
     except Exception as e:
+
         return {
             "status": "MongoDB Connection Failed",
             "error": str(e),

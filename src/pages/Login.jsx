@@ -7,158 +7,214 @@ import {
   googleLogin,
 } from "../services/authService";
 
-function Login() {
+import {
+  FaFeatherAlt,
+  FaArrowLeft,
+} from "react-icons/fa";
 
+function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
-
       await loginUser(formData);
 
-      setMessage("Login Successful!");
+      setMessage("Login successful!");
 
       setTimeout(() => {
         navigate("/dashboard", {
-          replace: true
+          replace: true,
         });
-      }, 1000);
+      }, 700);
 
     } catch (error) {
-
       setMessage(error.message);
-
     }
-
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
-
     try {
-
       await googleLogin(
         credentialResponse.credential
       );
 
       navigate("/dashboard", {
-        replace: true
+        replace: true,
       });
 
     } catch (error) {
-
       setMessage(error.message);
-
     }
-
   };
 
   const handleGoogleError = () => {
-
     setMessage("Google Login Failed.");
-
   };
 
   return (
+    <main className="min-h-screen bg-[#f8faf7] flex items-center justify-center px-6 py-12">
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md">
 
-      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+        {/* Logo */}
 
-        <h1 className="text-3xl font-bold text-center text-green-700 mb-8">
-          Login
-        </h1>
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
+        <Link
+          to="/"
+          className="flex items-center justify-center gap-3 mb-8"
         >
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-3"
-          />
+          <div className="w-11 h-11 rounded-xl bg-green-700 text-white flex items-center justify-center">
+            <FaFeatherAlt />
+          </div>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-3"
-          />
-
-          <button
-            className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800"
-          >
-            Login
-          </button>
-
-        </form>
-
-        <div className="my-6 flex items-center">
-
-          <hr className="flex-grow" />
-
-          <span className="mx-3 text-gray-500">
-            OR
+          <span className="text-2xl font-bold text-green-800">
+            Sutradhar AI
           </span>
 
-          <hr className="flex-grow" />
+        </Link>
 
-        </div>
+        {/* Card */}
 
-        <div className="flex justify-center">
+        <div className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8">
 
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-          />
+          <div className="text-center mb-8">
 
-        </div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Welcome back
+            </h1>
 
-        <p className="text-center mt-5 text-red-600">
-          {message}
-        </p>
+            <p className="text-gray-500 mt-2">
+              Sign in to manage your craft business.
+            </p>
 
-        <p className="text-center mt-6">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-green-700 font-semibold"
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5"
           >
-            Register
-          </Link>
-        </p>
+
+            <div>
+
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-200 rounded-xl p-3.5 outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+              />
+
+            </div>
+
+            <div>
+
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Password
+              </label>
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-200 rounded-xl p-3.5 outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+              />
+
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-green-700 hover:bg-green-800 text-white py-3.5 rounded-xl font-semibold transition"
+            >
+              Sign In
+            </button>
+
+          </form>
+
+          <div className="flex items-center gap-4 my-7">
+
+            <div className="flex-1 h-px bg-gray-200" />
+
+            <span className="text-sm text-gray-400">
+              OR
+            </span>
+
+            <div className="flex-1 h-px bg-gray-200" />
+
+          </div>
+
+          <div className="flex justify-center">
+
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+
+          </div>
+
+          {message && (
+            <p
+              className={`text-center mt-5 text-sm ${
+                message.toLowerCase().includes("successful")
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {message}
+            </p>
+          )}
+
+          <p className="text-center text-sm text-gray-500 mt-7">
+
+            Don't have an account?{" "}
+
+            <Link
+              to="/register"
+              className="text-green-700 font-semibold hover:text-green-900"
+            >
+              Create one
+            </Link>
+
+          </p>
+
+        </div>
+
+        <Link
+          to="/"
+          className="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-green-700 mt-6"
+        >
+          <FaArrowLeft />
+          Back to home
+        </Link>
 
       </div>
 
-    </div>
-
+    </main>
   );
-
 }
 
 export default Login;

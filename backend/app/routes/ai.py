@@ -2,11 +2,21 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from datetime import datetime
 
-from app.ai.gemini_service import generate_heritage_story
+from app.ai.gemini_service import (
+    generate_heritage_story,
+    generate_pricing_analysis,
+    generate_market_analysis,
+)
+
 from app.database import stories_collection
+
 
 router = APIRouter()
 
+
+# =========================================================
+# STORY REQUEST
+# =========================================================
 
 class StoryRequest(BaseModel):
     craft_name: str
@@ -14,6 +24,37 @@ class StoryRequest(BaseModel):
     artisan_name: str
     speciality: str
 
+
+# =========================================================
+# PRICING REQUEST
+# =========================================================
+
+class PricingRequest(BaseModel):
+    product_name: str
+    category: str
+    labour_cost: float
+    material_cost: float
+    market_price: float
+    quantity: int = 1
+
+
+# =========================================================
+# MARKET ANALYSIS REQUEST
+# =========================================================
+
+class MarketAnalysisRequest(BaseModel):
+    product_name: str
+    category: str
+    region: str
+    artisan: str
+    price: float
+    speciality: str
+
+
+# =========================================================
+# HERITAGE STORY
+# POST /api/ai/story
+# =========================================================
 
 @router.post("/story")
 def generate_story(data: StoryRequest):
@@ -41,6 +82,11 @@ def generate_story(data: StoryRequest):
     }
 
 
+# =========================================================
+# GET PREVIOUS STORIES
+# GET /api/ai/stories
+# =========================================================
+
 @router.get("/stories")
 def get_stories():
 
@@ -52,3 +98,47 @@ def get_stories():
     )
 
     return stories
+
+
+# =========================================================
+# PRICING ASSISTANT
+# POST /api/ai/pricing
+# =========================================================
+
+@router.post("/pricing")
+def pricing_analysis(data: PricingRequest):
+
+    analysis = generate_pricing_analysis(
+        data.product_name,
+        data.category,
+        data.labour_cost,
+        data.material_cost,
+        data.market_price,
+        data.quantity,
+    )
+
+    return {
+        "analysis": analysis
+    }
+
+
+# =========================================================
+# AI MARKET ANALYSIS
+# POST /api/ai/analyze
+# =========================================================
+
+@router.post("/analyze")
+def market_analysis(data: MarketAnalysisRequest):
+
+    analysis = generate_market_analysis(
+        data.product_name,
+        data.category,
+        data.region,
+        data.artisan,
+        data.price,
+        data.speciality,
+    )
+
+    return {
+        "analysis": analysis
+    }

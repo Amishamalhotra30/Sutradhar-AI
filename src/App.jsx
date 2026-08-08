@@ -1,24 +1,38 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Public pages
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ComponentsDemo from "./pages/ComponentsDemo";
+import NotFound from "./pages/NotFound";
+
+// Protected pages
+import Dashboard from "./pages/Dashboard";
 import AIStory from "./pages/AIStory";
 import Products from "./pages/Products";
 import CraftDNA from "./pages/CraftDNA";
-import NotFound from "./pages/NotFound";
+import Pricing from "./pages/Pricing";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
 
+// NEW AI pages
+import AIAnalysis from "./pages/AIAnalysis";
+import PricingAssistant from "./pages/PricingAssistant";
+
+// Components
 import ProtectRoute from "./components/ProtectRoute";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* ---------- Public Routes ---------- */}
+        {/* =====================================================
+            PUBLIC ROUTES
+        ===================================================== */}
 
         <Route path="/" element={<Home />} />
 
@@ -30,45 +44,140 @@ function App() {
 
         <Route path="/components" element={<ComponentsDemo />} />
 
-        {/* ---------- Protected Routes ---------- */}
 
+        {/* =====================================================
+            PROTECTED ROUTES
+        ===================================================== */}
+
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={
             <ProtectRoute>
-              <Dashboard />
+              <Layout>
+                <Dashboard />
+              </Layout>
             </ProtectRoute>
           }
         />
 
+
+        {/* AI Stories */}
         <Route
           path="/ai-story"
           element={
             <ProtectRoute>
-              <AIStory />
+              <Layout>
+                <AIStory />
+              </Layout>
             </ProtectRoute>
           }
         />
 
+
+        {/* Products */}
         <Route
           path="/products"
           element={
             <ProtectRoute>
-              <Products />
+              <Layout>
+                <Products />
+              </Layout>
             </ProtectRoute>
           }
         />
 
+
+        {/* Craft DNA */}
         <Route
           path="/craft-dna"
           element={
             <ProtectRoute>
-              <CraftDNA />
+              <Layout>
+                <CraftDNA />
+              </Layout>
             </ProtectRoute>
           }
         />
 
-        {/* ---------- 404 Page ---------- */}
+
+        {/* Pricing */}
+        <Route
+          path="/pricing"
+          element={
+            <ProtectRoute>
+              <Layout>
+                <Pricing />
+              </Layout>
+            </ProtectRoute>
+          }
+        />
+
+
+        {/* Settings */}
+        <Route
+          path="/settings"
+          element={
+            <ProtectRoute>
+              <Layout>
+                <Settings />
+              </Layout>
+            </ProtectRoute>
+          }
+        />
+
+
+        {/* =====================================================
+            PROFILE
+        ===================================================== */}
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectRoute>
+              <Layout>
+                <Profile />
+              </Layout>
+            </ProtectRoute>
+          }
+        />
+
+
+        {/* =====================================================
+            AI ANALYSIS
+        ===================================================== */}
+
+        <Route
+          path="/ai-analysis"
+          element={
+            <ProtectRoute>
+              <Layout>
+                <AIAnalysis />
+              </Layout>
+            </ProtectRoute>
+          }
+        />
+
+
+        {/* =====================================================
+            PRICING ASSISTANT
+        ===================================================== */}
+
+        <Route
+          path="/pricing-assistant"
+          element={
+            <ProtectRoute>
+              <Layout>
+                <PricingAssistant />
+              </Layout>
+            </ProtectRoute>
+          }
+        />
+
+
+        {/* =====================================================
+            404
+        ===================================================== */}
 
         <Route path="*" element={<NotFound />} />
 
