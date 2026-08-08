@@ -8,6 +8,8 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 /* ==========================================
    FORMAT GEMINI RESPONSE
    Removes markdown symbols and creates
@@ -240,7 +242,7 @@ function PricingAssistant() {
   // ==========================================
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/products/")
+    fetch(`${API_URL}/api/products/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load products");
@@ -357,7 +359,7 @@ function PricingAssistant() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/ai/pricing",
+        `${API_URL}/api/ai/pricing`,
         {
           method: "POST",
           headers: {

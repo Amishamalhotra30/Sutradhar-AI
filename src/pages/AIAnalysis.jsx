@@ -10,6 +10,11 @@ import {
   FaSpinner,
 } from "react-icons/fa";
 
+
+const API_URL = (
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+).replace(/\/$/, "");
+
 function AIAnalysis() {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -46,7 +51,7 @@ function AIAnalysis() {
   // ==========================================
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/products/")
+    fetch(`${API_URL}/api/products/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load products");
@@ -417,7 +422,7 @@ function AIAnalysis() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/ai/analyze",
+  `${API_URL}/api/ai/analyze`,
         {
           method: "POST",
           headers: {
